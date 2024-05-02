@@ -34,9 +34,9 @@ class PositionContriller extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Position $position)
     {
-        //
+        return view("position.show", compact("position"));
     }
 
     /**
