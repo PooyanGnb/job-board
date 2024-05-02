@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position;
 use Illuminate\Http\Request;
 
-class JobContriller extends Controller
+class PositionContriller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view("position.index", ['positions' => Position::all()]);
     }
 
     /**

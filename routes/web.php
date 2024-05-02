@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\PositionContriller;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource("positions",PositionContriller::class)
+    ->only("index");
