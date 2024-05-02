@@ -17,23 +17,16 @@
                 
             </div>
             <div>
-                <div class="mb-1 font-semibold">Experience</div>
-                <lable for="experience" class='mb-1 flex items-center'>
-                    <input type="radio" name="experience" value="" @checked(!request('experience')) />
-                    <span class="ml-2">All</span>
-                </lable>
-                <lable for="experience" class='mb-1 flex items-center'>
-                    <input type="radio" name="experience" value="entry" @checked(request('experience') === 'entry') />
-                    <span class="ml-2">Entry</span>
-                </lable>
-                <lable for="experience" class='mb-1 flex items-center'>
-                    <input type="radio" name="experience" value="intermediate" @checked(request('experience') === 'intermediate') />
-                    <span class="ml-2">Intermediate</span>
-                </lable>
-                <lable for="experience" class='mb-1 flex items-center'>
-                    <input type="radio" name="experience" value="senior" @checked(request('experience') === 'senior') />
-                    <span class="ml-2">senior</span>
-                </lable>
+                <div class="mb-1 font-semibold">
+                    Experience
+                </div>
+                <x-radio-group name="experience" :options="\App\Models\Position::$experience" />
+            </div>
+            <div>
+                <div class="mb-1 font-semibold">
+                    Category
+                </div>
+                <x-radio-group name="category" :options="\App\Models\Position::$category" />
             </div>
         </div>
         <button class="w-full">Filter</button>
