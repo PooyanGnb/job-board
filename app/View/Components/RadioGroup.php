@@ -19,6 +19,13 @@ class RadioGroup extends Component
         //
     }
 
+    public function optionsWithLables() : array
+    {
+        return isset($this->options[0]) ?
+            array_combine($this->options, $this->options) :
+            $this->options;
+    }
+
     /**
      * Get the view / contents that represent the component.
      */
