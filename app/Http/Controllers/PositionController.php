@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Position;
 use Illuminate\Http\Request;
 
-class PositionContriller extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("position.index", ['positions' => Position::all()]);
+        $positions = Position::query();
+
+        $positions->when(request('search'), function($query) {
+            $query->where('title', 'like', '%'. request('search') . '%')
+            ->orWhere('description', 'LIKE', '%'. request('search') . '%');
+        });
+
+        return view("position.index", ['positions' => $positions->get()]);
     }
 
     /**
