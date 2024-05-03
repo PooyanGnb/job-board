@@ -41,7 +41,7 @@ class PositionController extends Controller
      */
     public function show(Position $position)
     {
-        return view("position.show", ["position"=> $position->load('employer')]);
+        return view("position.show", ["position"=> $position->load('employer.positions')]);
     }
 
     /**
