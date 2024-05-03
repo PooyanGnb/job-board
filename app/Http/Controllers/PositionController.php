@@ -10,24 +10,11 @@ class PositionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $positions = Position::query();
+        $filters = request()->only('search', 'min_salary', 'max_salary', 'experience', 'category');
 
-        $positions->when(request('search'), function($query) {
-            $query->where(function($query) {
-                $query->where('title', 'like', '%'. request('search') . '%')
-                ->orWhere('description', 'LIKE', '%'. request('search') . '%');
-            });
-        })->when(request('min_salary'), function($query) {
-            $query->where('salary', '>=', request('min_salary'));
-        })->when(request('max_salary'), function($query) {
-            $query->where('salary', '<=', request('max_salary'));
-        })->when(request('experience'), function($query) {
-            $query->where('experience', request('experience'));
-        })->when(request('category'), function($query) {
-            $query->where('category', request('category'));
-        });
+        $positions = Position::query()->filter($filters);
 
 
         return view("position.index", ['positions' => $positions->get()]);
