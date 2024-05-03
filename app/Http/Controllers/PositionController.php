@@ -14,10 +14,10 @@ class PositionController extends Controller
     {
         $filters = request()->only('search', 'min_salary', 'max_salary', 'experience', 'category');
 
-        $positions = Position::query()->filter($filters);
+        $positions = Position::with('employer')->filter($filters)->get();
 
 
-        return view("position.index", ['positions' => $positions->get()]);
+        return view("position.index", ['positions' => $positions]);
     }
 
     /**
@@ -41,7 +41,7 @@ class PositionController extends Controller
      */
     public function show(Position $position)
     {
-        return view("position.show", compact("position"));
+        return view("position.show", ["position"=> $position->load('employer')]);
     }
 
     /**
