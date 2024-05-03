@@ -20,7 +20,7 @@ class PositionFactory extends Factory
         return [
             'title' => fake()->jobTitle,
             'description' => fake()->paragraphs(4, true),
-            'salary' => fake()->numberBetween(5000,300000),
+            'salary' => round(fake()->numberBetween(5000,300000), -3),
             'location' => fake()->city,
             'category' => fake()->randomElement(Position::$category),
             'experience' => fake()->randomElement(Position::$experience)
