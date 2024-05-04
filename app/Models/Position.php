@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,15 @@ class Position extends Model
 
     public static array $experience = ['entry', 'intermediate', 'senior'];
     public static array $category = ['IT', 'Finance', 'Salesforce', 'Marketing'];
+
+    public function hasUserApplied(Authenticatable|User|int $user): bool
+    {
+        return $this->where('id', $this->id)
+            ->whereHas(
+                'positionApplications', 
+                fn($query) => $query->where('user_id', '=', $user->id ?? $user)
+            )->exists();
+    }
 
     public function scopeFilter(Builder|QueryBuilder $query, array $filters) : Builder|QueryBuilder
     {

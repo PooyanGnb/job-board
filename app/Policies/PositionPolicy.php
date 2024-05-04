@@ -66,6 +66,6 @@ class PositionPolicy
 
     public function apply(User $user, Position $position) :  bool 
     {
-        return true;
+        return !$position->hasUserApplied($user);
     }
 }
