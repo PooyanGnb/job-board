@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Employer;
 use App\Models\Position;
+use App\Models\PositionApplication;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,17 @@ class DatabaseSeeder extends Seeder
             Position::factory()->create([
                 'employer_id' => $employers->random()->id
             ]);
+        }
+
+        foreach ($users as $user) {
+            $postions = Position::inRandomOrder()->take(rand(0,4))->get();
+
+            foreach($postions as $postion) {
+                PositionApplication::factory()->create([
+                    'position_id' => $postion->id,
+                    'user_id' => $user->id
+                ]);
+            }
         }
 
     }

@@ -12,7 +12,7 @@
 
         <div class="text-sm text-slate-500">
             @foreach($position->employer->positions as $job)
-                <div class='mb-4 flex justify-between'>
+                <x-card class='mb-4 flex justify-between'>
                     <div>
                         <div class="text-slate-700">
                             <a href="{{route('positions.show', $job)}}">{{$job->title}}</a>
@@ -24,7 +24,7 @@
                     <div class='text-xs'>
                         ${{number_format($job->salary)}}
                     </div>
-                </div>
+                </x-card>
             @endforeach
         </div>
     </x-card>

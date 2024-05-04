@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class Position extends Model
@@ -15,6 +16,11 @@ class Position extends Model
     public function employer(): BelongsTo
     {
         return $this->belongsTo(Employer::class);
+    }
+
+    public function positionApplications() : HasMany
+    {
+        return $this->hasMany(PositionApplication::class);
     }
 
     public static array $experience = ['entry', 'intermediate', 'senior'];
