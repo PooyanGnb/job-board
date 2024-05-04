@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PositionApplicationController extends Controller
 {
@@ -13,6 +14,7 @@ class PositionApplicationController extends Controller
      */
     public function create(Position $position)
     {
+        Gate::authorize("apply", $position);
         return view('position_application.create', ["position" => $position]);
     }
 
