@@ -10,6 +10,8 @@ class PositionApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['expected_salary', 'user_id', 'position_id'];
+
     public function position() : BelongsTo
     {
         return $this->belongsTo(Position::class);

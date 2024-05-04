@@ -19,9 +19,16 @@ class PositionApplicationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Position $position)
     {
-        //
+        $position->positionApplications()->create([
+            'user_id' => auth()->user()->id,
+            ...$request->validate([
+                'expected_salary' => 'required|min:1|max:350000',
+            ])
+        ]);
+
+        return redirect()->route('positions.show', $position)->with('success', 'Position application submitted successfully.');
     }
 
     /**
