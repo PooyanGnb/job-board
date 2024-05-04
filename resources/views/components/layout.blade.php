@@ -23,7 +23,15 @@
             <ul class="flex space-x-2">
             @auth
                 <li>
-                {{ auth()->user()->name ?? 'Anynomus' }}
+                    {{ auth()->user()->name ?? 'Anynomus' }}
+                </li>
+                <li>
+                |
+                </li>              
+                <li>
+                    <a href="{{ route('my-position-applications.index') }}">
+                        Applications
+                    </a>
                 </li>
                 <li>
                 |
