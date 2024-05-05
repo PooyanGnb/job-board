@@ -12,9 +12,10 @@ class EmployerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        Gate::authorize("create");
+
+        Gate::allows('create');
         return view('employer.create');
     }
 

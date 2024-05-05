@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\MyPositionApplicationController;
+use App\Http\Controllers\MyPositionController;
 use App\Http\Controllers\PositionApplicationController;
 use App\Http\Controllers\PositionController;
+use App\Http\Middleware\Employer;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/", fn () => to_route('positions.index'));
@@ -23,4 +25,6 @@ Route::middleware('auth')->group(function () {
         ->only(['index','destroy']);
     Route::resource('employer', EmployerController::class)
         ->only(['create','store']);
+    Route::resource('my-positions', MyPositionController::class)
+        ->middleware(Employer::class);
 });

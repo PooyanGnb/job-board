@@ -35,6 +35,12 @@
                 </li>
                 <li>
                 |
+                </li>    
+                <li>
+                    <a href="{{ route('my-positions.index') }}">My Positions</a>
+                </li>          
+                <li>
+                |
                 </li>              
                 <li>
                     <form action="{{ route('auth.destroy') }}" method="POST">
