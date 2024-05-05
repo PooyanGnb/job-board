@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Position;
+use App\Models\PositionApplication;
 use Illuminate\Http\Request;
 
 class MyPositionApplicationController extends Controller
@@ -15,8 +16,12 @@ class MyPositionApplicationController extends Controller
         return view('my_position_application.index', compact('applications'));
     }
 
-    public function destroy(string $id)
+    public function destroy(PositionApplication $myPositionApplication)
     {
-        //
+        $myPositionApplication->delete();
+
+        return redirect()->back()->with(
+            'success', 'Position application removed.'
+        );
     }
 }

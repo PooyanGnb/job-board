@@ -21,9 +21,23 @@
                 ${{ number_format($application->position->position_applications_avg_expected_salary) }}
             </div>
             </div>
-            <div>Right</div>
+            <div>
+              <form action="{{route('my-position-applications.destroy', $application)}}"method="POST">
+                @csrf
+                @method('DELETE')
+                <x-button>Cancle</x-button>
+              </form>
+            </div>
         </div>
     </x-job-card>
   @empty
+    <div class="rounded-md border border-dashed border-slate-300 p-8">
+      <div class="text-center font-medium">
+        No position application yet
+      </div>
+      <div class="text-center">
+        Go find some positions <a class="text-indigo-500 hover:underline" href="{{route('positions.index')}}">here!</a>
+      </div>
+    </div>
   @endforelse
 </x-layout>
