@@ -12,7 +12,10 @@ class MyPositionController extends Controller
      */
     public function index()
     {
-        return view('my_position.index');
+        $positions = auth()->user()->employer->positions()->latest()
+            ->with(['employer', 'positionApplications', 'positionApplications.user'])
+            ->get();
+        return view('my_position.index', compact('positions'));
     }
 
     /**

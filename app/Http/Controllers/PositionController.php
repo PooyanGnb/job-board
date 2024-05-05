@@ -14,7 +14,7 @@ class PositionController extends Controller
     {
         $filters = request()->only('search', 'min_salary', 'max_salary', 'experience', 'category');
 
-        $positions = Position::with('employer')->filter($filters)->get();
+        $positions = Position::with('employer')->latest()->filter($filters)->get();
 
 
         return view("position.index", ['positions' => $positions]);
