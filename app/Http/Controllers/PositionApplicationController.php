@@ -23,11 +23,18 @@ class PositionApplicationController extends Controller
      */
     public function store(Request $request, Position $position)
     {
+        $validateData = $request->validate([
+            'expected_salary' => 'required|min:1|max:350000',
+            'cv'=> 'required|file|mimes:pdf|max:2048',
+        ]);
+
+        $file = $request->file('cv');
+        $path =$file->store('cvs', 'private');
+
         $position->positionApplications()->create([
             'user_id' => auth()->user()->id,
-            ...$request->validate([
-                'expected_salary' => 'required|min:1|max:350000',
-            ])
+            'expected_salary' => $validateData['expected_salary'],
+            'cv_path' => $path
         ]);
 
         return redirect()->route('positions.show', $position)->with('success', 'Position application submitted successfully.');
