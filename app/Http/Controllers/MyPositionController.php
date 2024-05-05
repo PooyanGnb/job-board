@@ -19,7 +19,7 @@ class MyPositionController extends Controller
      */
     public function create()
     {
-        //
+        return view('my_position.create');
     }
 
     /**
