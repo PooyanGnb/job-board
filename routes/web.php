@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\MyPositionApplicationController;
 use App\Http\Controllers\PositionApplicationController;
 use App\Http\Controllers\PositionController;
@@ -20,4 +21,6 @@ Route::middleware('auth')->group(function () {
         ->only(['create','store']);
     Route::resource('my-position-applications', MyPositionApplicationController::class)
         ->only(['index','destroy']);
+    Route::resource('employer', EmployerController::class)
+        ->only(['create','store']);
 });
