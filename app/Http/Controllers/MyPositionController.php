@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class MyPositionController extends Controller
@@ -27,7 +28,18 @@ class MyPositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'salary' => 'required|numeric|min:5000',
+            'description' => 'required|string',
+            'experience' => 'required|in:'.implode(',' , Position::$experience),
+            'category' => 'required|in:'.implode(',' , Position::$category),
+        ]);
+
+        auth()->user()->employer->positions()->create($validated);
+
+        return redirect()->route('my-positions.index')->with('success','Position created successfully.');
     }
 
     /**
