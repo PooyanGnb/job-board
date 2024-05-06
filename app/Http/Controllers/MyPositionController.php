@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PositionRequest;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class MyPositionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        
         $positions = auth()->user()->employer->positions()->latest()
             ->with(['employer', 'positionApplications', 'positionApplications.user'])
             ->get();

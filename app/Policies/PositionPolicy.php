@@ -19,7 +19,7 @@ class PositionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, Position $position): bool
+    public function viewAnyEmployer(User $user): bool
     {
         return true;
     }
@@ -29,15 +29,24 @@ class PositionPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->employer !== null;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Position $position): bool
+    public function update(User $user, Position $position): bool | Response
     {
-        return false;
+        if ( $position->employer->user_id !== $user->id) 
+        {
+            return false;
+        }
+
+        if ($position->positionApplications()->count() > 0) {
+            return Response::deny('Cannot change the position with applications');
+        }
+
+        return true;
     }
 
     /**
@@ -45,7 +54,7 @@ class PositionPolicy
      */
     public function delete(User $user, Position $position): bool
     {
-        return false;
+        return $position->employer->user_id === $user->id;
     }
 
     /**
@@ -53,7 +62,7 @@ class PositionPolicy
      */
     public function restore(User $user, Position $position): bool
     {
-        return false;
+        return $position->employer->user_id === $user->id;
     }
 
     /**
@@ -61,7 +70,7 @@ class PositionPolicy
      */
     public function forceDelete(User $user, Position $position): bool
     {
-        return false;
+        return $position->employer->user_id === $user->id;
     }
 
     public function apply(User $user, Position $position) :  bool 
